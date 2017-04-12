@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9b5ceac-218c-44dc-9f01-7ef9319dc33e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/datetime_information.py" afterPath="$PROJECT_DIR$/datetime_information.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/journal_file_handling.py" afterPath="$PROJECT_DIR$/journal_file_handling.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/journal_main.py" afterPath="$PROJECT_DIR$/journal_main.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,9 +21,10 @@
         <entry file="file://$PROJECT_DIR$/journal_main.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="940">
-              <caret line="47" column="13" lean-forward="true" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+              <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
               <folding>
                 <element signature="e#61#71#0" expanded="true" />
+                <marker date="1491987556365" expanded="true" signature="147:148" ph="..." />
               </folding>
             </state>
           </provider>
@@ -45,8 +45,8 @@
       <file leaf-file-name="datetime_information.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/datetime_information.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+            <state relative-caret-position="560">
+              <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
               <folding />
             </state>
           </provider>
@@ -408,6 +408,7 @@
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
           <folding>
             <element signature="e#61#71#0" expanded="true" />
+            <marker date="1491987556365" expanded="true" signature="147:148" ph="..." />
           </folding>
         </state>
       </provider>
@@ -436,17 +437,18 @@
     <entry file="file://$PROJECT_DIR$/journal_main.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="940">
-          <caret line="47" column="13" lean-forward="true" selection-start-line="47" selection-start-column="13" selection-end-line="47" selection-end-column="13" />
+          <caret line="49" column="13" lean-forward="true" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
           <folding>
             <element signature="e#61#71#0" expanded="true" />
+            <marker date="1491987556365" expanded="true" signature="147:148" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/datetime_information.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+        <state relative-caret-position="560">
+          <caret line="52" column="26" lean-forward="true" selection-start-line="52" selection-start-column="26" selection-end-line="52" selection-end-column="26" />
           <folding />
         </state>
       </provider>

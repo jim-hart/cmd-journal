@@ -7,6 +7,8 @@ import datetime_information
 
 
 def get_entry():
+    """Gets user's journal input and passes it to confirm_entry() based on
+    selection input request after initial intry process"""
 
     print("** Begin log for {} **\n".format(
                                 datetime_information.get_datetime()["date"]))
@@ -15,6 +17,7 @@ def get_entry():
                                 journal_file_handling.get_entry_count() + 1))
     selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
     
+    #simple error checking process to make sure selector propperly chosen    
     selection_list = ["-s", "-e", "-qc"]    
     while selection not in selection_list:
         print("Error: Invalid Selection")
@@ -44,9 +47,6 @@ def confirm_entry(selection, user_entry):
 
 
 if __name__ == '__main__':
-    #x = get_entry()
-    #print(x)
-
     get_entry()
 
 
