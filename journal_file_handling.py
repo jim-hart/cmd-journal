@@ -32,16 +32,34 @@ def update_entry_count(filename, entry_count):
 
 
 def save_entry(entry):
+    """Writes user's journal entry and datetime information to a .txt file and
+    calls get_entry_count(update_count=True) to update entry count.
+    
+    Arguments:
+    entry -- string containing user's journal entry
+        
+    File output format example:
+    
+    Date: Jan-1-1970
+    Day : Thursday    
+    Time: 04:00:00
+    Log#: 1
+            
+    Entry: <users text here>       
+    
+    """
+    
     
     count = get_entry_count() + 1
     
     #datetime_information() stored in variable so it's only called once to avoid
     #possible time conflicts from three separate calls in a list literal
     date_information = datetime_information.get_datetime()
-    file_information = ["Date: {}".format(date_information["date"]),
-                        "Day : {}".format(date_information["day"]),
+    file_information = ["Date: {}\n".format(date_information["date"]),
+                        "Day : {}\n".format(date_information["day"]),
                         "Time: {}\n".format(date_information["time"]),
-                        "Entry:\n{}".format(entry)]
+                        "Log#: {}\n\n".format(count),
+                        "Entry:{}".format(entry)]
      
     
     directory = "Q:\\GDrive\\Books & Notes\\Entries"
@@ -50,7 +68,9 @@ def save_entry(entry):
 
     with open(filename, 'w') as f_obj:
         f_obj.writelines(file_information)        
-
+    
+    get_entry_count(update_count=True)
+    
 if __name__ == '__main__':
     #test case
     print()

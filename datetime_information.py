@@ -1,7 +1,7 @@
 import time
 
 def get_datetime():
-    """Returns dictionary of current date, time, and day of week based on easten
+    """Returns dictionary of current date, time, and day of week based on eastern
     standard time
     
     return example:
