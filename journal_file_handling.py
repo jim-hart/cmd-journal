@@ -1,5 +1,9 @@
+#! python3
+
 """Contains functions that construct a filename based on current date"""
 import time
+import json
+import os
 
 def format_datetime():
     """Returns a string representative of the current date based on eastern
@@ -29,6 +33,14 @@ def format_datetime():
     return "{}-{}-{}".format(month, day, year)
     
 
+def get_entry_count():
+    """returns total count of journal entries from entry_count.json"""
+
+    current_directory = os.getcwd()
+    filename = "{}\\json_data\\entry_count.json".format(current_directory)
+    with open(filename) as f_obj:
+        return json.load(f_obj)
+
 if __name__ == '__main__':
     #test case
-    print(format_datetime())
+    print(get_entry_count())
