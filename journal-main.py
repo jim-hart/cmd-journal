@@ -1,8 +1,9 @@
 #! python3
 
 """Program for logging simple journal entries"""
+import sys
 import time
-from journal_file_handling import (get_entry_count)
+from journal_file_handling import (get_entry_count, save_entry)
 
 
 def datetime_information():
@@ -20,15 +21,15 @@ def datetime_information():
 
     current_datetime = time.localtime()
 
-    months_dictionary = {1:  "Jan",
-                         2:  "Feb",
-                         3:  "Mar",
-                         4:  "Apr",
-                         5:  "May",
-                         6:  "Jun",
-                         7:  "Jul",
-                         8:  "Aug",
-                         9:  "Sep",
+    months_dictionary = {1 : "Jan",
+                         2 : "Feb",
+                         3 : "Mar",
+                         4 : "Apr",
+                         5 : "May",
+                         6 : "Jun",
+                         7 : "Jul",
+                         8 : "Aug",
+                         9 : "Sep",
                          10: "Oct",
                          11: "Nov",
                          12: "Dec"}
@@ -61,13 +62,48 @@ def datetime_information():
 def get_entry():
 
     print("** Begin log for {} **\n".format(datetime_information()["date"]))
+    
     user_entry = input("Entry #{}: ".format(get_entry_count() + 1))
+    selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
+    
+    selection_list = ["-s", "-e", "-qc"]    
+    while selection not in selection_list:
+        print("Error: Invalid Selection")
+        selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
+        
+    if selection == "-qc":
+        sys.exit("Entry Cancelled")
+    else:
+        confirm_entry(selection, user_entry)
 
-    return user_entry
+
+def confirm_entry(selection, user_entry):
+    """Processes user selection in get_entry() function
+    
+    Arguments:
+    selection  -- string value that dictates how program proceded
+        "-s" selector saves the journal entry
+        "-e" selector calls get_entry() so user can re-input entry        
+    user_entry -- string that contains users journal entry
+    
+    """
+    
+    if selection == "-s":
+        save_entry(user_entry)
+    elif selection == "-e"
+        get_entry()
+    
+    
+        
+def test():
+    print("pass")    
+
 
 if __name__ == '__main__':
-    x = get_entry()
-    print(x)
+    #x = get_entry()
+    #print(x)
+
+    get_entry()
 
 
 

@@ -31,8 +31,14 @@ def update_entry_count(filename, entry_count):
         json.dump(entry_count+1, f_obj)
 
 
+def save_entry(date, entry):
 
+    directory = "\"Q:\\GDrive\\Books & Notes\\Entries"
+    filename = "{}\\{}.txt\"".format(directory, date)
+
+    with open(filename, 'w') as f_obj:
+        f_obj.write(entry)        
 
 if __name__ == '__main__':
     #test case
-    print(get_entry_count())
+    print()
