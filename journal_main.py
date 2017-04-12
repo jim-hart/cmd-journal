@@ -44,9 +44,12 @@ def datetime_information():
 
     #date information
     month   = months_dictionary[current_datetime.tm_mon]
-    day     = current_datetime.tm_mday
+    day     = current_datetime.tm_mday    
     year    = current_datetime.tm_year
     weekday = days_dictionary[current_datetime.tm_wday]
+    
+    if day < 10:
+        day = "0{}".format(current_datetime.tm_mday)
     
     #time information
     hour    = current_datetime.tm_hour

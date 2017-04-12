@@ -3,7 +3,7 @@
 """Functions for writing user input to files, and updating entry count data"""
 import json
 import os
-
+#from journal_main.py import (datetime_information)
 
 def get_entry_count(update_count=False):
     """Either returns current journal entry count, or sends that count to
@@ -33,8 +33,9 @@ def update_entry_count(filename, entry_count):
 
 def save_entry(date, entry):
 
+    count = get_entry_count() + 1
     directory = "Q:\\GDrive\\Books & Notes\\Entries"
-    filename = "{}\\{}.txt".format(directory, date)
+    filename = "{}\\Entry #{} -- {}.txt".format(directory, count, date)
 
     with open(filename, 'w') as f_obj:
         f_obj.write(entry)        
