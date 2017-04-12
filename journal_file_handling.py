@@ -33,8 +33,8 @@ def update_entry_count(filename, entry_count):
 
 def save_entry(date, entry):
 
-    directory = "\"Q:\\GDrive\\Books & Notes\\Entries"
-    filename = "{}\\{}.txt\"".format(directory, date)
+    directory = "Q:\\GDrive\\Books & Notes\\Entries"
+    filename = "{}\\{}.txt".format(directory, date)
 
     with open(filename, 'w') as f_obj:
         f_obj.write(entry)        

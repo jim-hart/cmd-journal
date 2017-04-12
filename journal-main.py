@@ -88,15 +88,12 @@ def confirm_entry(selection, user_entry):
     
     """
     
+    date = datetime_information()["date"]
+    
     if selection == "-s":
-        save_entry(user_entry)
-    elif selection == "-e"
+        save_entry(date, user_entry)
+    elif selection == "-e":
         get_entry()
-    
-    
-        
-def test():
-    print("pass")    
 
 
 if __name__ == '__main__':
