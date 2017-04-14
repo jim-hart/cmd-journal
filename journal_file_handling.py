@@ -2,20 +2,36 @@
 
 """Functions for writing user input to files, and updating entry count data"""
 import json
-import os
+import sys, os
 import datetime_information
 
+def get_directory(directory):
+    """Returns a string that contains path information based on the argument
+    provided for directory
+    
+    Arguments:
+    directory -- string that specifies which path is returned
+    
+    """
+    
+    if directory == "base":          
+        return os.path.dirname(sys.argv[0])    
+    if directory == "entries":
+        return "Q:\\GDrive\\Books & Notes\\Entries"
+    
+
 def get_entry_count(update_count=False):
-    """Either returns current journal entry count, or sends that count to
-    get_entry_county()
+    """Either returns dictionary containing current journal entry count, or
+    sends that dictionary to save_entry()
 
     Arguments:
     update_count -- if True, sends count to update_entry_count() to be updated
 
     """
-
-    current_directory = os.getcwd()
-    filename = "{}\\json_data\\entry_count.json".format(current_directory)    
+    
+    directory = get_directory("base")
+    filename = "{}/json_data/file_information.json".format(directory)     
+    
     with open(filename) as f_obj:
         entry_count = json.load(f_obj)
         
@@ -26,9 +42,10 @@ def get_entry_count(update_count=False):
 
 def update_entry_count(filename, entry_count):
     """Updates entry_count.json file"""
-
+    
+    entry_count["entry_count"] += 1
     with open(filename, 'w') as f_obj:
-        json.dump(entry_count+1, f_obj)
+        json.dump(entry_count, f_obj, sort_keys=True, indent=4)
 
 
 def save_entry(entry):
@@ -48,9 +65,8 @@ def save_entry(entry):
     Entry: <users text here>       
     
     """
-    
-    
-    count = get_entry_count() + 1
+        
+    count = get_entry_count()["entry_count"] + 1
     
     #datetime_information() stored in variable so it's only called once to avoid
     #possible time conflicts from three separate calls in a list literal
@@ -61,8 +77,7 @@ def save_entry(entry):
                         "Log#: {}\n\n".format(count),
                         "Entry:{}".format(entry)]
      
-    
-    directory = "Q:\\GDrive\\Books & Notes\\Entries"
+    directory = get_directory("entries")
     filename = "{}\\Entry #{} -- {}.txt".format(
                                     directory, count, date_information["date"])
 
@@ -73,4 +88,7 @@ def save_entry(entry):
     
 if __name__ == '__main__':
     #test case
-    print()
+    #get_entry_count(update_count=True)
+    save_entry("test")
+    
+    
