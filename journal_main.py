@@ -14,7 +14,7 @@ def get_user_entry():
                                 datetime_information.get_datetime()["date"]))
     
     user_initial = input("Entry #{}: ".format(
-                    journal_file_handling.get_entry_count()["entry_count"]+1))
+                    journal_file_handling.process_json()["entry_count"]+1))
     user_final = "{} {}".format("", user_initial)
     selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
     
