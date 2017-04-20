@@ -1,14 +1,17 @@
 #! python3
 
-"""Functions for writing user input to files, and updating entry coDDDDDDDDDunt data"""
+"""Functions for writing user input to files, and updating entry_count data"""
+
 import json
 import sys, os
 import datetime_information
 
 class Directory():
-    """Holds directory information for files used in program"""    
+    """Holds directory information for files used in program"""
+        
     JSON    = "Q:\\Git_Repos\\#Projects#\\cmd-journal\\json_data\\file_information.json"
     ENTRIES = "Q:\\GDrive\\Books & Notes\\Entries"
+
 
 def process_json(update_count=False):
     """Returns, or writes data to file based on arguments passed to function
