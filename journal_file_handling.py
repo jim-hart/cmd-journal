@@ -55,14 +55,14 @@ def save_entry(entry):
     Arguments:
     entry -- string containing user's journal entry
         
-    File output format example:
+    .txt header format example:
     
     Date: Jan-1-1970
     Day : Thursday    
     Time: 04:00:00
     Log#: 1
             
-    Entry: <users text here>       
+    Entry: <user's text here>       
     
     """
         
@@ -88,7 +88,7 @@ def save_entry(entry):
     
 if __name__ == '__main__':
     #test case
-    #get_entry_count(update_count=True)
-    save_entry("test")
-    
+    script_directory = os.path.dirname(sys.argv[0])
+    json_directory = "json_data\\file_information.json"
+    print(os.path.join(script_directory, json_directory))
     

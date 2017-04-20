@@ -6,7 +6,7 @@ import journal_file_handling
 import datetime_information
 
 
-def get_entry():
+def get_user_entry():
     """Gets user's journal input and passes it to confirm_entry() based on
     selection input request after initial entry process"""
 
@@ -31,12 +31,12 @@ def get_entry():
 
 
 def confirm_entry(selection, user_entry):
-    """Processes user selection in get_entry() function
+    """Processes user selection in get_user_entry() function
     
     Arguments:
     selection  -- string value that dictates which function is passed control
         "-s" selector saves the journal entry
-        "-e" selector calls get_entry() so user can re-input entry        
+        "-e" selector calls get_user_entry() so user can re-input entry        
     user_entry -- string that contains users journal entry
     
     """
@@ -44,11 +44,11 @@ def confirm_entry(selection, user_entry):
     if selection == "-s":
         journal_file_handling.save_entry(user_entry)
     elif selection == "-e":
-        get_entry()
+        get_user_entry()
 
 
 if __name__ == '__main__':
-    get_entry()
+    get_user_entry()
 
 
 
