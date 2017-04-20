@@ -28,13 +28,13 @@ def get_datetime():
                          11: "Nov",
                          12: "Dec"}
     
-    days_dictionary =   {1 : "Monday",
-                         2 : "Tuesday",
-                         3 : "Wednesday",
-                         4 : "Thursday",
-                         5 : "Friday",
-                         6 : "Saturday",
-                         7 : "Sunday"}
+    days_dictionary =   {0 : "Monday",
+                         1 : "Tuesday",
+                         2 : "Wednesday",
+                         3 : "Thursday",
+                         4 : "Friday",
+                         5 : "Saturday",
+                         6 : "Sunday"}
 
     #date information
     month   = months_dictionary[current_datetime.tm_mon]
@@ -57,3 +57,4 @@ def get_datetime():
 
 if __name__ == '__main__':
     print(get_datetime())
+    
