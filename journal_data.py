@@ -3,14 +3,14 @@
 """Functions for writing user input to files, and updating entry_count data"""
 
 import json
-import datetime_information
-
+import os
 
 class Directory:
     """Holds directory information for files used in program"""
         
     JSON    = "Q:\\Git_Repos\\#Projects#\\cmd-journal\\json_data\\file_information.json"
     ENTRIES = "Q:\\GDrive\\Books & Notes\\Entries"
+
 
 class JsonData:
     """Class for managing file_information.json"""    
@@ -19,10 +19,13 @@ class JsonData:
         self.path = Directory.JSON
         self.data = self.get_data()
       
+      
     def get_data(self):
-        """Returns dictionary containing keys:values in file_information.json"""             
+        """Returns dictionary containing keys:values in file_information.json"""
+                     
         with open(self.path) as f_obj:
             return json.load(f_obj)
+            
 
     def update_count(self):
         """Iterates entry_count value by 1 and writes new value to
@@ -39,6 +42,7 @@ def save_entry(entry):
     
     Arguments:
         entry -- Object containing formatted text body and filename
+        
     """
     
     entry.json_obj.update_count()   
