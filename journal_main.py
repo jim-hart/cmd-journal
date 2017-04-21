@@ -56,7 +56,7 @@ class Entry:
                             self.datetime["date"])
 
 
-def get_entry(count):
+def get_entry():
     """Return is based on input stored in selection variable:       
         '-qc'-- Program exits and no data written to any file
         
@@ -66,13 +66,9 @@ def get_entry(count):
                 
         '-e' -- get_entry() is called again, no data written to any file. This
                 allows user to change entry before comitting to file.
-               
-    Arguments:
-        count -- contains current entry count, incremented by 1 for display
-                 purposes
-                 
+                     
     """
-    
+    count = journal_data.JsonData().data["entry_count"] + 1
     user_input = input("Entry #{}: ".format(count)) 
     selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
     
@@ -99,11 +95,12 @@ def main():
                            count, datetime_information.get_datetime()["date"]))    
     
     #Allows user to re-enter entry as many time as desired, or quit at any time
-    while not get_entry(count):
-        get_entry(count)
+    user_entry = get_entry()
+    while not user_entry:
+        user_entry = get_entry()
     
     #journal_file_handling.save_entry(Entry())
-    save_entry(Entry())
+    journal_data.save_entry(Entry(user_entry))
 
 if __name__ == '__main__':
     main()
