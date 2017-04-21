@@ -3,41 +3,36 @@
 """Functions for writing user input to files, and updating entry_count data"""
 
 import json
-import sys, os
 import datetime_information
 
-class Directory():
+class Directory:
     """Holds directory information for files used in program"""
         
     JSON    = "Q:\\Git_Repos\\#Projects#\\cmd-journal\\json_data\\file_information.json"
     ENTRIES = "Q:\\GDrive\\Books & Notes\\Entries"
 
-
-def process_json(update_count=False):
-    """Returns, or writes data to file based on arguments passed to function
+class JsonData:
+    """Class for managing file_information.json"""    
     
-    Arguments:
-    file_type   -- Used as variable to pull file path, which is located in
-                   Directory class
-    update_count-- if True, increments file_information.json["entry_count"] by 1
-    
-    """    
-    
-    #If only passed file_type, data is only returned
-    with open(Directory.JSON) as f_obj:
-        if not update_count:
+    def __init__(self):
+        self.path = Directory.JSON
+        self.data = self.get_data()
+      
+    def get_data(self):
+        """Returns dictionary containing keys:values in file_information.json"""             
+        with open(self.path) as f_obj:
             return json.load(f_obj)
-        else:
-            file_data = json.load(f_obj)
-    
-    #data write process
-    with open(Directory.JSON, 'w') as f_obj:
-        file_data["entry_count"] += 1
-        json.dump((file_data), f_obj, indent=4, sort_keys=True)
+
+    def update_count(self):
+        """Iterates entry_count value by 1 and writes new value to
+        file_information.json """
+
+        with open(self.path, 'w') as f_obj:
+            self.data["entry_count"] += 1
+            json.dump(self.data, f_obj, indent=4, sort_keys=True)
 
 
-
-def save_entry(entry):
+def save_entry(entry, file_data):
     """Writes user's journal entry and datetime information to a .txt file and
     iterates file_information.json by 1
     
@@ -55,15 +50,14 @@ def save_entry(entry):
     
     """
     
-    process_json(update_count=True)
-    count = process_json()["entry_count"]    
+    file_data.update_count()        
     #datetime_information() stored in variable so it's only called once to avoid
     #possible time conflicts from three separate calls in a list literal
     date_information = datetime_information.get_datetime()
     file_information = ["Date: {}\n".format(date_information["date"]),
                         "Day : {}\n".format(date_information["day"]),
                         "Time: {}\n".format(date_information["time"]),
-                        "Log#: {}\n\n".format(count),
+                        "Log#: {}\n\n".format(file_data.data["entry_count"]),
                         "Entry:{}".format(entry)]
      
     directory = Directory.ENTRIES
@@ -75,6 +69,8 @@ def save_entry(entry):
     
 if __name__ == '__main__':
     #test case
-    print()
+    file_data = JsonData()
+    file_data.update_count()
+    print(file_data.data)
     
   

@@ -15,7 +15,7 @@ def get_datetime():
 
     current_datetime = time.localtime()
 
-    months_dictionary = {1 : "Jan",
+    month_conversion =  {1 : "Jan",
                          2 : "Feb",
                          3 : "Mar",
                          4 : "Apr",
@@ -27,8 +27,8 @@ def get_datetime():
                          10: "Oct",
                          11: "Nov",
                          12: "Dec"}
-    
-    days_dictionary =   {0 : "Monday",
+                         
+    day_conversion   =  {0 : "Monday",
                          1 : "Tuesday",
                          2 : "Wednesday",
                          3 : "Thursday",
@@ -37,10 +37,11 @@ def get_datetime():
                          6 : "Sunday"}
 
     #date information
-    month   = months_dictionary[current_datetime.tm_mon]
+    weekday = day_conversion[current_datetime.tm_wday]
+    month   = month_conversion[current_datetime.tm_mon]
     day     = current_datetime.tm_mday    
     year    = current_datetime.tm_year
-    weekday = days_dictionary[current_datetime.tm_wday]
+    
     
     if day < 10:
         day = "0{}".format(current_datetime.tm_mday)
