@@ -38,7 +38,7 @@ class JsonData:
 
 def save_entry(entry):
     """Writes user's journal entry and datetime information to a .txt file and
-    iterates file_information.json by 1
+    iterates file_information.json["entry_count"] by 1
     
     Arguments:
         entry -- Object containing formatted text body and filename
