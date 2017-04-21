@@ -74,13 +74,12 @@ def get_entry():
     selection  = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
     
     #simple error checking process to verify journal entry creation
-    selection_list = ["-s", "-e", "-qc"]    
-    while selection not in selection_list:
+    while selection not in ["-s", "-e", "-qc"]:
         print("Error: Invalid Selection")
         selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
         
     if selection == "-qc":
-        sys.exit("Entry Cancelled")   
+        sys.exit("Entry cancelled, closing program.")   
     elif selection == "-s":
         return user_input
     elif selection == "-e":
