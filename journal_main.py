@@ -55,29 +55,20 @@ class Entry:
                             self.datetime["date"])
 
 
-def confirm_entry(selection):
-    """Function will return True or False based on selection argument
-    
-    Arguments:
-    selection  -- string value that dictates which function is passed control
-       "-qc" Exits the program; no file is written to or modified
-        "-s" Returns True, resulting in main() passing control to journal_file_handling.save_entry()
-        "-e" Returns False, resulting in main() allowing user to re-enter entry   
-            
-    """
-        
 def get_entry(count):
     """Return is based on input stored in selection variable:       
-            '-qc'-- Program exits and no data written to any file
-            '-s' -- Entry object is constructed with user_input and is written
-                    to .txt file.  file_information.json["entry_coount"] will be
-                    incremented by 1 as well.
-            '-e' -- get_entry() is called again, no data written to any file. This
-                    allows user to change entry before comitting to file.
+        '-qc'-- Program exits and no data written to any file
+        
+        '-s' -- Entry object is constructed with user_input and is written
+                to .txt file.  file_information.json["entry_coount"] will be
+                incremented by 1 as well.
+                
+        '-e' -- get_entry() is called again, no data written to any file. This
+                allows user to change entry before comitting to file.
                
-        Arguments:
-            count -- contains current entry count, incremented by 1 for display
-                     purposes
+    Arguments:
+        count -- contains current entry count, incremented by 1 for display
+                 purposes
     """
     
     user_input = input("Entry #{}: ".format(count)) 
