@@ -5,6 +5,7 @@
 import json
 import datetime_information
 
+
 class Directory:
     """Holds directory information for files used in program"""
         
@@ -32,43 +33,22 @@ class JsonData:
             json.dump(self.data, f_obj, indent=4, sort_keys=True)
 
 
-def save_entry(entry, file_data):
+def save_entry(entry):
     """Writes user's journal entry and datetime information to a .txt file and
     iterates file_information.json by 1
     
     Arguments:
-    entry -- string containing user's journal entry
-        
-    .txt header format example:
-    
-    Date: Jan-1-1970
-    Day : Thursday    
-    Time: 04:00:00
-    Log#: 1
-            
-    Entry: <user's text here>       
-    
+        entry -- Object containing formatted text body and filename
     """
     
-    file_data.update_count()        
-    #datetime_information() stored in variable so it's only called once to avoid
-    #possible time conflicts from three separate calls in a list literal
-    date_information = datetime_information.get_datetime()
-    file_information = ["Date: {}\n".format(date_information["date"]),
-                        "Day : {}\n".format(date_information["day"]),
-                        "Time: {}\n".format(date_information["time"]),
-                        "Log#: {}\n\n".format(file_data.data["entry_count"]),
-                        "Entry:{}".format(entry)]
-     
-    directory = Directory.ENTRIES
-    filename = "{}\\Entry #{} -- {}.txt".format(
-                                    directory, count, date_information["date"])
+    entry.json_obj.update_count()   
 
-    with open(filename, "w") as f_obj:
-        f_obj.writelines(file_information)
+    with open(os.path.join(Directory.ENTRIES, entry.filename), "w") as f_obj:
+        f_obj.writelines(entry.body)
+        
     
 if __name__ == '__main__':
-    #test case
+    #test case(s)
     file_data = JsonData()
     file_data.update_count()
     print(file_data.data)

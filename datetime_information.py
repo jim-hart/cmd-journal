@@ -57,5 +57,6 @@ def get_datetime():
             "day" :  weekday}
 
 if __name__ == '__main__':
+    #test case(s)
     print(get_datetime())
     

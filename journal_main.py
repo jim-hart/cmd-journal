@@ -1,20 +1,21 @@
 #! python3
 
 """Program for logging simple journal entries"""
-import sys
+import os, sys
 import datetime_information
-from journal_file_handling import (Directory, JsonData)
+import journal_data
+
 
 class Entry:
     """Constructs a formatted text body and file name that details various
     datetime information, along with the current entry number"""
     
     def __init__(self, entry):
-        self.file_data = JsonData().data
+        self.json_obj  = journal_data.JsonData()
         self.entry     = "{} {}".format("", entry)
         self.datetime  = datetime_information.get_datetime()
-        self.body      = format_body()
-        self.filename  = format_filename()
+        self.body      = self.format_body()
+        self.filename  = self.format_filename()
         
         
     def format_body(self):
@@ -37,7 +38,7 @@ class Entry:
         return  ["Date: {}\n".format(self.datetime["date"]),
                  "Day : {}\n".format(self.datetime["day"]),
                  "Time: {}\n".format(self.datetime["time"]),
-                 "Log#: {}\n\n".format(self.file_data["entry_count"]+1),
+                 "Log#: {}\n\n".format(self.json_obj.data["entry_count"]+1),
                  "Entry:{}".format(self.entry)]
      
     
@@ -51,7 +52,7 @@ class Entry:
         """        
         
         return "Entry #{} -- {}.txt".format(
-                            self.filedata["entry_count"]+1,
+                            self.json_obj.data["entry_count"]+1,
                             self.datetime["date"])
 
 
@@ -69,6 +70,7 @@ def get_entry(count):
     Arguments:
         count -- contains current entry count, incremented by 1 for display
                  purposes
+                 
     """
     
     user_input = input("Entry #{}: ".format(count)) 
@@ -86,12 +88,13 @@ def get_entry(count):
         return user_input
     elif selection == "-e":
         return False
-        
+
+   
 
 def main():
     """Main flow control for program"""    
     
-    count = JsonData().data["entry_count"]+1
+    count = journal_data.JsonData().data["entry_count"] + 1
     print("** Begin log for {} **\n".format(
                            count, datetime_information.get_datetime()["date"]))    
     
@@ -100,8 +103,7 @@ def main():
         get_entry(count)
     
     #journal_file_handling.save_entry(Entry())
-    
-    return Entry()
+    save_entry(Entry())
 
 if __name__ == '__main__':
     main()
