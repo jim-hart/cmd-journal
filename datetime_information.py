@@ -1,5 +1,6 @@
 import time
 
+
 def get_datetime():
     """Returns a formatted dictionary of current date, time, and day of week
     based on eastern standard time.
@@ -36,27 +37,25 @@ def get_datetime():
                          5 : "Saturday",
                          6 : "Sunday"}
 
-    #date information
+    # date information
     weekday = day_conversion[current_datetime.tm_wday]
     month   = month_conversion[current_datetime.tm_mon]
     day     = current_datetime.tm_mday    
     year    = current_datetime.tm_year
     
-    
     if day < 10:
         day = "0{}".format(current_datetime.tm_mday)
     
-    #time information
+    # time information
     hour    = current_datetime.tm_hour
     minute  = current_datetime.tm_min
     second  = current_datetime.tm_sec
 
-    #formatted information
+    # formatted information
     return {"date": "{}-{}-{}".format(month, day, year),
             "time": "{}:{}:{}".format(hour, minute, second),
             "day" :  weekday}
 
 if __name__ == '__main__':
-    #test case(s)
+    # test case(s)
     print(get_datetime())
-    
