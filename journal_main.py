@@ -8,41 +8,37 @@ import journal_data
 
 
 class Entry:
-    """Constructs a formatted text body and file name that details various
+    """Constructs a formatted text header and file name that details various
     datetime information, along with the current entry number"""
     
     def __init__(self, entry):
         self.json_obj  = journal_data.JsonData()
-        self.entry     = "{} {}".format("", entry)
         self.datetime  = datetime_information.get_datetime()
-        self.body      = self.format_body()
+        self.header    = self.format_header()
+        self.body      = self.format_body(entry)
         self.filename  = self.format_filename()
         
         
-    def format_body(self):
-        """Returns list containing header information and the user's text entry
-        
-        Arguments:
-            entry -- string containing user's journal entry
-            
-        formatted header example:
+    def format_header(self):
+        """Returns list containing formatted header information.  Also formats
+        text header as well.
+       
+        Formatted header example:
                 
         Date: Jan-1-1970
         Day : Thursday    
         Time: 04:00:00
-        Log#: 1
-                
-        Entry: <user's text here>       
+        Log#: 1               
+      
         
-        """  
+        """
+
+        return  ["Date: {}\n".format(self.datetime['date']),
+                 "Day : {}\n".format(self.datetime['day']),
+                 "Time: {}\n".format(self.datetime['time']),
+                 "Log#: {}\n\n".format(self.json_obj.data['entry_count'] + 1)]       
         
-        return  ["Date: {}\n".format(self.datetime["date"]),
-                 "Day : {}\n".format(self.datetime["day"]),
-                 "Time: {}\n".format(self.datetime["time"]),
-                 "Log#: {}\n\n".format(self.json_obj.data["entry_count"]+1),
-                 "Entry:{}".format(self.entry)]
-     
-    
+        
     def format_filename(self):
         """Returns filename formatted with datetime information, and entry number
         
@@ -52,47 +48,57 @@ class Entry:
         
         """        
         
-        return "Entry #{} -- {}.txt".format(self.json_obj.data["entry_count"]+1,
-                                            self.datetime["date"])
+        return "Entry #{} -- {}.txt".format(self.json_obj.data['entry_count'] + 1,
+                                            self.datetime['date'])
+
+    def format_body(entry):
+        """Returns list containing user's entry strings, along with descriptive
+        start and end tags to be displayed in .txt file"""
+ 
+        entry.insert(0, "---BEGIN LOG---\n\n")
+        entry.append("----END LOG----")
+        return entry
 
 
 def get_entry():
     """Return is based on input provided to selection variable:       
         '-qc'-- Program exits and no data is written to any file
         
-        '-s' -- Entry object is constructed with user_input and is written
-                to .txt file.  file_information.json["entry_count"] will be
-                incremented by 1.
+        '-s' -- List containing entry strings is returned.  This list is then
+                formatted with Entry class, and is then pushed to
+                journal_data.save_entry()
                 
         '-e' -- get_entry() is called again, no data written to any file. This
                 allows user to change entry before committing to file.
                      
     """    
-    count = journal_data.JsonData().data["entry_count"] + 1
-    
-    user_input = input("Entry #{}: ".format(count)) 
-    selection  = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
-    
-    #simple error checking process to verify journal entry creation
-    selection_list = ["-s", "-e", "-qc"]    
-    while selection not in selection_list:
+    count = journal_data.JsonData().data['entry_count'] + 1    
+    user_entry = input("Entry #{} (enter '\end' to end input):\n".format(count))
+  
+    entries = [] 
+    while user_entry.lower().strip() != '/end':
+        #Allows enter key to be used in cmd prompt as a line break
+        entries.append("{}\n\n".format(user_entry))
+        user_entry = input()         
+     
+    selection  = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")    
+    while selection not in ["-s", "-e", "-qc"]:
         print("Error: Invalid Selection")
         selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
         
     if selection == "-qc":
         sys.exit("Entry Cancelled")   
     elif selection == "-s":
-        return user_input
+        return entries
     elif selection == "-e":
         return False
    
 
 def main():
-    """Main flow control for program"""    
-    
-    count = journal_data.JsonData().data["entry_count"] + 1
-    print("** Begin log for {} **\n".format(
-                            count, datetime_information.get_datetime()["date"]))    
+    """Main flow control for program"""     
+
+    print("*** Begin log for {} ***\n".format(
+                                datetime_information.get_datetime()['date']))    
     
     #Allows user to re-enter text as many time as desired, or quit at any time
     user_entry = get_entry()
