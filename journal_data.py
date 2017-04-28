@@ -66,9 +66,10 @@ class JsonData:
     def check_json_path(cls):
         """Generates file_information.json if such file does not exist"""
         
-        if not os.path.isfile(Directory.get_path(json_data=True)):
+        if not os.path.exists(Directory.get_path(json_data=True)):
             json_object = {"entry_count": -1, "entry_path": ""}
-            print(">>Program data file not detected | generating new object now.")           
+            print(">>Program data file not detected | generating new object now.")
+            os.mkdir(os.path.dirname(Directory.get_path(json_data=True)))
             cls.update_data(entry_count=True, default_json=json_object)
     
     
