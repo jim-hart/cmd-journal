@@ -38,3 +38,5 @@ The program will automatically save your entry to a pre-determined directory, an
 ### *In Progress*
 - [ ] Additional format checks (periods, spacing, etc...)
 - [ ] Basic file encryption to keep body text, filenames, or both private
+
+<em>Application Icon Credit:</em> <a target="_blank" href="https://www.vexels.com/vectors/preview/128313/note-book-flat-icon"> link </a> |   Designed by Vexels.com
