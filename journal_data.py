@@ -60,7 +60,19 @@ class Directory:
 
 class JsonData:
     """Class for managing file_information.json"""
-
+    
+    @classmethod
+    def check_json_path(cls):
+        """sets up initial file_information.json if such file does not exist"""
+        
+        if not os.path.isfile(Directory.get_path(json_data=True)):
+            json_object = {
+                            "entry_count": -1,
+                            "entry_path": ""
+            }           
+            cls.update_data(entry_count=True)
+    
+    
     @classmethod
     def get_data(cls):
         """Returns dictionary containing keys:values in file_information.json"""
