@@ -5,7 +5,7 @@
 import sys
 import datetime_information
 import journal_data
-
+import re
 
 class Entry:
     """Constructs a formatted text header and file name that details various
@@ -57,8 +57,7 @@ class Entry:
         entry.insert(0, "---BEGIN LOG---\n\n")
         entry.append("----END LOG----")
         return entry
-
-
+        
 def get_entry():
     """Return is based on input provided to selection variable:       
         '-qc'-- Program exits and no data is written to any file
@@ -73,10 +72,9 @@ def get_entry():
     """
     count = journal_data.JsonData().get_data()['entry_count'] + 1
     user_entry = input("Entry #{} (enter '\end' to end input):\n".format(count))
-
+    
     entries = []
-    while user_entry.lower().strip() != '/end':
-        # Allows enter key to be used in cmd prompt as a line break
+    while '/end' not in user_entry.lower():
         entries.append("{}\n\n".format(user_entry))
         user_entry = input()
 
@@ -108,3 +106,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
