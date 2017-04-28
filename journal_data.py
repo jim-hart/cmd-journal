@@ -7,50 +7,56 @@ import os
 import sys
 import shutil
 
-class Directory:
-    """Holds directory information for files used in program"""
 
-    ENTRIES = 'Q:\\GDrive\\Books & Notes\\Entries'
+class Directory:
+    """Handles retrieval and updating of file paths"""
+
+    ENTRY_DEFAULT = os.path.join(os.path.dirname(sys.argv[0]), 'Entries')
 
     @classmethod
-    def get_path(cls, json_data=False, entry_data=False):
+    def get_path(cls, json_data=False, entry_files=False):
         """Returns path of folder holding json data for the program"""
 
         if json_data:
             return os.path.join(os.path.dirname(sys.argv[0]),
-                               'json_data\\file_information.json')
-        elif entry_data:
+                                'json_data\\file_information.json')
+        elif entry_files:
             return JsonData.get_data()['entry_path']
 
     @classmethod
     def check_entry_path(cls):
         """Returns true if entry path folder exists in file_information.json,
         otherwise, default path is set for user in working directory for
-        program"""
+        program and method returns False"""
 
         if not os.path.exists(JsonData.get_data()['entry_path']):
-            default_path = os.path.join(os.path.dirname(sys.argv[0]), 'Entries')
             print("Enter Folder Location not detected! Folder set to: {}"
-                  .format(default_path))
-            os.mkdir(default_path)
-
+                  .format(cls.ENTRY_DEFAULT))
+            os.mkdir(cls.ENTRY_DEFAULT)
+            JsonData.update_data(entry_path=True, new_path=cls.ENTRY_DEFAULT)
+            return False
         else:
             return True
 
     @classmethod
-    def set_entry_path(cls, path):
+    def set_entry_path(cls, user_path=None, reset_path=False):
         """Changes path to entry folder and copies all current entries to that
-        new folder
+        new folder.  
         
         Args:
-            path (str): string that contains path to new folder location
+            user_path (str): contains path to new folder location
+            reset_path (bool): if True, path is reset to default entry path
         
-        """  
-        
-        # current_path = cls.get_path()
-        # shutil.copytree(
-        # JsonData.update_data(entry_path=True, new_path=path)
-        
+        """
+        if reset_path:
+            JsonData.update_data(entry_path=True, new_path=cls.ENTRY_DEFAULT)
+            return print("Entry folder reset to: {}".format(cls.ENTRY_DEFAULT))
+
+        if os.path.isdir(user_path) and not reset_path:
+            shutil.copytree(Directory.get_path(entry_files=True), user_path)
+            JsonData.update_data(entry_path=True, new_path=user_path)
+            return print("Entry folder updated to: {}".format(user_path))
+
 
 class JsonData:
     """Class for managing file_information.json"""
@@ -59,11 +65,11 @@ class JsonData:
     def get_data(cls):
         """Returns dictionary containing keys:values in file_information.json"""
 
-        with open(Directory.get_path()) as f_obj:
+        with open(Directory.get_path(json_data=True)) as f_obj:
             return json.load(f_obj)
 
     @classmethod
-    def update_data(cls, entry_count=False, entry_path=False, new_path=""):
+    def update_data(cls, entry_count=False, entry_path=False, new_path=None):
         """Performs action based on passed entry_count or entry_path arguments 
 
         Args:            
@@ -74,14 +80,14 @@ class JsonData:
         """
 
         file_data = cls.get_data()
-        with open(Directory.get_path(), 'w') as f_obj:
+        with open(Directory.get_path(json_data=True), 'w') as f_obj:
             if entry_count:
-                file_data['entry_count'] += 1 
+                file_data['entry_count'] += 1
             elif entry_path:
                 file_data['entry_path'] = new_path
-                
+
             json.dump(file_data, f_obj, indent=4, sort_keys=True)
-            
+
 
 def save_entry(entry):
     """Writes user's journal entry and datetime information to a .txt file and
@@ -94,15 +100,16 @@ def save_entry(entry):
 
     JsonData().update_data(entry_count=True)
 
-    with open(os.path.join(Directory.ENTRIES, entry.filename), 'w') as f_obj:
+    filename = os.path.join(Directory.get_path(entry_files=True), entry.filename)
+    with open(filename, 'w') as f_obj:
         f_obj.writelines(entry.header)
         f_obj.writelines(entry.body)
 
-    print("Entry saved to {}".format(Directory.ENTRIES))
+    print("Entry saved to {}".format(Directory.get_path(entry_files=True)))
 
 
 if __name__ == '__main__':
     # test case(s)
+    print()
     # Directory.check_entry_path()
-    Directory.check_entry_path()
-    # print(Directory.get_path())
+    # print(Directory.get_path(json_data=True))
