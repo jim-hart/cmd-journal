@@ -1,5 +1,5 @@
 # cmd-journal
-Command line tool for writing simple journal entries.
+Command line tool for writing simple text-log entries.
 
 ## Automatic Formatting
 The program will automatically format the journal filename and text body.  Functionality includes:
