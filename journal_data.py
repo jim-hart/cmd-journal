@@ -31,7 +31,7 @@ class Directory:
         program and method returns False"""
 
         if not os.path.exists(JsonData.get_data()['entry_path']):
-            print("Entry Folder Location not detected -- folder set to: {}"
+            print(">>Entry folder location not detected | folder set to: {}"
                   .format(cls.ENTRY_DEFAULT))
             os.mkdir(cls.ENTRY_DEFAULT)
             JsonData.update_data(entry_path=True, new_path=cls.ENTRY_DEFAULT)
@@ -64,14 +64,11 @@ class JsonData:
     
     @classmethod
     def check_json_path(cls):
-        """sets up initial file_information.json if such file does not exist"""
+        """Generates file_information.json if such file does not exist"""
         
         if not os.path.isfile(Directory.get_path(json_data=True)):
-            json_object = {
-                            "entry_count": -1,
-                            "entry_path": ""
-            }
-            print("Program data file not detected -- generating new object now.")           
+            json_object = {"entry_count": -1, "entry_path": ""}
+            print(">>Program data file not detected | generating new object now.")           
             cls.update_data(entry_count=True, default_json=json_object)
     
     

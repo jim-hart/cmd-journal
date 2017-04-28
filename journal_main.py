@@ -97,7 +97,7 @@ def main():
     journal_data.JsonData.check_json_path()
     journal_data.Directory.check_entry_path()
 
-    print("*** Begin log for {} ***\n".format(
+    print("\n*** Begin log for {} ***\n".format(
                                 datetime_information.get_datetime()['date']))
 
     # Allows user to re-enter text as many time as desired, or quit at any time
