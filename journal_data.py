@@ -24,7 +24,7 @@ class JsonData:
     def get_data(cls):
         """Returns dictionary containing keys:values in file_information.json"""
                      
-        with open(Diretory.json_path()) as f_obj:
+        with open(Directory.json_path()) as f_obj:
             return json.load(f_obj)
             
     @classmethod
@@ -33,7 +33,7 @@ class JsonData:
         file_information.json """
         
         file_data = cls.get_data()        
-        with open(Diretory.json_path(), 'w') as f_obj:
+        with open(Directory.json_path(), 'w') as f_obj:
             file_data['entry_count'] += 1
             json.dump(file_data, f_obj, indent=4, sort_keys=True)
 
@@ -59,4 +59,4 @@ def save_entry(entry):
 if __name__ == '__main__':
     # test case(s)
     #JsonData().update_count()
-    print(Directory.json_path()
+    print(Directory.json_path())
