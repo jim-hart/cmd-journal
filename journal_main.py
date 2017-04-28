@@ -70,7 +70,7 @@ def get_entry():
                      
     """
     count = journal_data.JsonData().get_data()['entry_count'] + 1
-    user_entry = input("Entry #{} (enter '\end' to end input):\n".format(count))
+    user_entry = input("Entry #{} (enter '/end' to end input):\n".format(count))
     
     entries = []
     while '/end' not in user_entry.lower():
