@@ -5,7 +5,6 @@
 import sys
 import datetime_information
 import journal_data
-import re
 
 class Entry:
     """Constructs a formatted text header and file name that details various
@@ -93,6 +92,10 @@ def get_entry():
 
 def main():
     """Main flow control for program"""
+    
+    # Generates necessary files when running for first time, or replaces missing files
+    journal_data.JsonData.check_json_path()
+    journal_data.Directory.check_entry_path()
 
     print("*** Begin log for {} ***\n".format(
                                 datetime_information.get_datetime()['date']))

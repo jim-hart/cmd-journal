@@ -11,7 +11,8 @@ import shutil
 class Directory:
     """Handles retrieval and updating of file paths"""
 
-    ENTRY_DEFAULT = os.path.join(os.path.dirname(sys.argv[0]), 'Entries')
+    ENTRY_DEFAULT = os.path.abspath(os.path.join(
+                                    os.path.dirname(sys.argv[0]), 'Entries'))
 
     @classmethod
     def get_path(cls, json_data=False, entry_files=False):
@@ -30,7 +31,7 @@ class Directory:
         program and method returns False"""
 
         if not os.path.exists(JsonData.get_data()['entry_path']):
-            print("Enter Folder Location not detected! Folder set to: {}"
+            print("Entry Folder Location not detected -- folder set to: {}"
                   .format(cls.ENTRY_DEFAULT))
             os.mkdir(cls.ENTRY_DEFAULT)
             JsonData.update_data(entry_path=True, new_path=cls.ENTRY_DEFAULT)
@@ -69,8 +70,9 @@ class JsonData:
             json_object = {
                             "entry_count": -1,
                             "entry_path": ""
-            }           
-            cls.update_data(entry_count=True)
+            }
+            print("Program data file not detected -- generating new object now.")           
+            cls.update_data(entry_count=True, default_json=json_object)
     
     
     @classmethod
@@ -81,7 +83,7 @@ class JsonData:
             return json.load(f_obj)
 
     @classmethod
-    def update_data(cls, entry_count=False, entry_path=False, new_path=None):
+    def update_data(cls, entry_count=False, entry_path=False, new_path=None, default_json=None):
         """Performs action based on passed entry_count or entry_path arguments 
 
         Args:            
@@ -90,8 +92,12 @@ class JsonData:
             new_path (str):     contains string holding new path to entry folder
         
         """
-
-        file_data = cls.get_data()
+        
+        if not default_json:
+            file_data = cls.get_data()
+        else:
+            file_data=default_json        
+        
         with open(Directory.get_path(json_data=True), 'w') as f_obj:
             if entry_count:
                 file_data['entry_count'] += 1
@@ -122,6 +128,6 @@ def save_entry(entry):
 
 if __name__ == '__main__':
     # test case(s)
-    print()
+    print(os.path.abspath(Directory.ENTRY_DEFAULT))
     # Directory.check_entry_path()
     # print(Directory.get_path(json_data=True))
