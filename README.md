@@ -7,7 +7,7 @@ A command line tool for writing simple, auto-cataloged text entries
 While the program has consistently run locally without any issues, your experience may vary.  If you experience any problems, please submit it via the issue tracker so I can look into it.  
 
 #### Requirements:
-1) Python 3.5+ if you want to run the code directly using your local interpreter
+1) Python 2.7+ if you want to run the code directly using your local interpreter
 2) Windows OS -- Debian-Linux coming soon
 
 #### Instructions:
