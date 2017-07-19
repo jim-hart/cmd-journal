@@ -1,20 +1,21 @@
 #! python3
 
 """Program for logging simple journal entries"""
+from __future__ import print_function
 
 import sys
 import os
-import datetime_information
+import datetime
 import journal_data
 
 
-class Entry:
+class Entry(object):
     """Constructs a formatted text header and file name that details various
     datetime information, along with the current entry number"""
 
     def __init__(self, entry):
         self.log_number = Entry.get_log_count()
-        self.datetime = datetime_information.get_datetime()
+        self.date = datetime.datetime.now().strftime("%b-%d-%Y")
         self.document = self.format_header() + self.format_body(entry)
         self.filename = self.format_filename()
 
@@ -31,7 +32,7 @@ class Entry:
 
         Formatted header example:
 
-        Date: Jan-1-1970
+        Date: Jan-01-1970
         Day : Thursday
         Time: 04:00:00
         Log#: 1
@@ -39,9 +40,10 @@ class Entry:
 
         """
 
-        return ["Date: {}\n".format(self.datetime['date']),
-                "Day : {}\n".format(self.datetime['day']),
-                "Time: {}\n".format(self.datetime['time']),
+        d = datetime.datetime.now()
+        return ["Date: {}\n".format(self.date),
+                "Day : {}\n".format(d.strftime("%A")),
+                "Time: {}\n".format(d.strftime("%X")),
                 "Log#: {}\n\n".format(self.log_number)]
 
     def format_filename(self):
@@ -52,9 +54,7 @@ class Entry:
         Entry #1 -- Jan-1-1970
 
         """
-
-        return "Entry #{} -- {}.txt".format(self.log_number,
-                                            self.datetime['date'])
+        return "Entry #{} -- {}.txt".format(self.log_number, self.date)
 
     @staticmethod
     def format_body(entry):
@@ -82,9 +82,10 @@ def get_entry():
     user_entry = input("Entry #{} (enter '/end' to end input):\n".format(count))
 
     entries = ["{}\n\n".format(user_entry)]
-    while '/end' not in user_entry.lower():
-        entries.append("{}\n\n".format(user_entry))
-        user_entry = input()
+    while '/end' not in "".join(entries).lower():
+        entries.append("{}".format(input()))
+        if '/end' not in entries[-1]:
+            entries[-1] += '\n\n'
 
     selection = input("-s: save entry, -e: edit entry, -qc: quit & cancel: ")
     while selection not in ["-s", "-e", "-qc"]:
@@ -94,8 +95,7 @@ def get_entry():
     if selection == "-qc":
         sys.exit("Entry Cancelled")
     elif selection == "-s":
-        for index, line in enumerate(entries):
-            entries[index] = line.replace('/end', '')
+        entries[-1] = entries[-1].replace('/end', '')
         return entries
     elif selection == "-e":
         return False
@@ -108,7 +108,7 @@ def main():
     journal_data.DataValidation.check_all()
 
     print("\n*** Begin log for {} ***\n".format(
-        datetime_information.get_datetime()['date']))
+        datetime.datetime.now().strftime("%b-%d-%Y")))
 
     # Allows user to re-enter text as many time as desired, or quit at any time
     user_entry = get_entry()

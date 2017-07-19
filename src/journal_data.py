@@ -5,6 +5,8 @@
 
 """Functions for writing user input to files, and updating entry_count data"""
 
+from __future__ import print_function
+
 import json
 import os
 import sys
@@ -57,7 +59,7 @@ class DataValidation(FileIO):
         if not os.path.isfile(Directory.JSON_PATH):
             print(">>Program data file not detected | generating new object now.")
             data = {"entry_count": 0, "entry_path": "{}".format(Directory.ENTRY_DEFAULT)}
-            cls.json_io(write_data=dataJs)
+            cls.json_io(write_data=data)
 
     @classmethod
     def _check_entry_path(cls):
