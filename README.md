@@ -17,7 +17,7 @@ While the program has consistently run locally without any issues, your experien
          >python "DirectoryPathToFile"\journal_main.py
       ```
 
-- Option 2: Download the zip file [here](https://github.com/jim-hart/cmdjournal/raw/ca6413811e1deb9ffa8f1eaf6675b9a49b9fa871/journal_main.zip). You can then extract the file anywhere and run it from the folder. All your log-entries will be generated in whatever directory you run the program from by default. 
+- Option 2: You can find the latest release [here](https://github.com/jim-hart/cmd-journal/releases). You can then extract the file anywhere and run it from the folder. All your log-entries will be generated in whatever directory you run the program from by default. 
 
 To get the most out of this utility, make a batch file that runs the executable, and add that batch file to a folder that's in your system path.  Using this method, you can enter the batch file's name via the run command (win+r) and the program will start.  
 
